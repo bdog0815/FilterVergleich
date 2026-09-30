@@ -1,18 +1,19 @@
 #include <iostream>
-#include "bloom/bloom.h"
+#include "cuckoo/cuckoofilter.h"
 
 int main() {
-    using Filter = bloomfilter::BloomFilter<uint64_t, 10, true>;
+    using Filter = cuckoofilter::CuckooFilter<uint64_t, 12>;
 
     size_t capacity;
     std::cout << "Erwartete Anzahl" << std::endl;
     std::cin >> capacity;
 
-    Filter bf(capacity);
+    Filter cf(capacity);
 
     while(true) {
         std::cout << "1 - Element einfügen" << std::endl;
         std::cout << "2 - Element suchen" << std::endl;
+        std::cout << "3 - Element löschen" << std::endl;
         std::cout << "0 - Beenden" << std::endl;
 
         int choice;
@@ -23,7 +24,7 @@ int main() {
                 uint64_t value;
                 std::cin >> value;
 
-                bf.Add(value);
+                cf.Add(value);
                 break;
             }
 
@@ -31,8 +32,16 @@ int main() {
                 uint64_t value;
                 std::cin >> value;
 
-                bool found = bf.Contain(value) == bloomfilter::Ok;
+                bool found = cf.Contain(value) == cuckoofilter::Ok;
                 std::cout << value << " -> " << (found ? "possibly present" : "not present") << std::endl;
+                break;
+            }
+
+            case 3: {
+                uint64_t value;
+                std::cin >> value;
+
+                cf.Delete(value);
                 break;
             }
 
