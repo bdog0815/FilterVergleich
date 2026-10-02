@@ -16,6 +16,7 @@
 #include "linux-perf-events.h"
 #endif
 #include "filterapi.h"
+#include <fstream>
 
 // The number of items sampled when determining the lookup performance
 const size_t MAX_SAMPLE_SIZE = 10 * 1000 * 1000;
@@ -23,12 +24,16 @@ const size_t MAX_SAMPLE_SIZE = 10 * 1000 * 1000;
 // The statistics gathered for each table type:
 struct Statistics {
   size_t add_count;
-  double nanos_per_add;
-  double nanos_per_remove;
+  double nanos_per_add; //insert time
+  double nanos_per_remove; //delete time
   // key: percent of queries that were expected to be positive
   map<int, double> nanos_per_finds;
-  double false_positive_probabilty;
-  double bits_per_item;
+  double false_positive_probabilty; //fpr
+  double bits_per_item; //speicher
+  double memory_bytes; //speicher
+  double construction_time; //konstruktion
+  double lookup_negative;
+  double lookup_positive;
 };
 
 
@@ -37,28 +42,30 @@ struct Statistics {
 // of different lookup statistics gathered for each table. This function assumes the
 // lookup expected positive probabiilties are evenly distributed, with the first being 0%
 // and the last 100%.
-string StatisticsTableHeader(int type_width, const std::vector<double> &found_probabilities) {
+string StatisticsTableHeader(int type_width) {
   ostringstream os;
 
   os << string(type_width, ' ');
-  os << setw(8) << right << "";
+  /*os << setw(8) << right << "";
   os << setw(8) << right << "";
   for (size_t i = 0; i < found_probabilities.size(); ++i) {
     os << setw(8) << "find";
   }
   os << setw(8) << "1*add+";
   os << setw(8) << "" << setw(11) << "" << setw(11)
-     << "optimal" << setw(8) << "wasted" << setw(8) << "million" << endl;
+     << "optimal" << setw(8) << "wasted" << setw(8) << "million"*/
+  os << setw(20) << "Speicher" << setw(20) << "Speicher pro Element" << setw(20) << "Einfügezeit" << setw(20) << "Konstruktionszeit" << setw(20) << "posLookup" << setw(20) << "negLookup" << setw(20) << "Löschzeit" << setw(20) << "FPR" << endl;
 
   os << string(type_width, ' ');
-  os << setw(8) << right << "add";
+  /*os << setw(8) << right << "add";
   os << setw(8) << right << "remove";
   for (double prob : found_probabilities) {
     os << setw(8 - 1) << static_cast<int>(prob * 100.0) << '%';
   }
   os << setw(8) << "3*find";
   os << setw(9) << "ε%" << setw(11) << "bits/item" << setw(11)
-     << "bits/item" << setw(8) << "space%" << setw(8) << "keys";
+     << "bits/item" << setw(8) << "space%" << setw(8) << "keys"*/
+  os << setw(20) << "bytes" << setw(20) << "bit" << setw(20) << "ns" << setw(20) << "ns" << setw(20) << "ns" << setw(20) << "ns" << setw(20) << "ns" << setw(20) << "%";
   return os.str();
 }
 
@@ -66,7 +73,7 @@ string StatisticsTableHeader(int type_width, const std::vector<double> &found_pr
 template <class CharT, class Traits>
 basic_ostream<CharT, Traits>& operator<<(
     basic_ostream<CharT, Traits>& os, const Statistics& stats) {
-  os << fixed << setprecision(2) << setw(8) << right
+  /*os << fixed << setprecision(2) << setw(8) << right
      << stats.nanos_per_add;
   double add_and_find = 0;
   os << fixed << setprecision(2) << setw(8) << right
@@ -77,20 +84,23 @@ basic_ostream<CharT, Traits>& operator<<(
   }
   add_and_find = add_and_find * 3 / stats.nanos_per_finds.size();
   add_and_find += stats.nanos_per_add;
-  os << setw(8) << add_and_find;
+  os << setw(8) << add_and_find;*/
 
   // we get some nonsensical result for very small fpps
   if(stats.false_positive_probabilty > 0.0000001) {
-    const auto minbits = log2(1 / stats.false_positive_probabilty);
-    os << setw(8) << setprecision(4) << stats.false_positive_probabilty * 100
+    os << fixed /*<< setw(8) << setprecision(4) << stats.false_positive_probabilty * 100
        << setw(11) << setprecision(2) << stats.bits_per_item << setw(11) << minbits
        << setw(8) << setprecision(1) << 100 * (stats.bits_per_item / minbits - 1)
-       << " " << setw(7) << setprecision(3) << (stats.add_count / 1000000.);
+       << " " << setw(7) << setprecision(3) << (stats.add_count / 1000000.)*/
+       << setprecision(2) << setw(20) << stats.memory_bytes << setw(20) << stats.bits_per_item << setw(20) << stats.nanos_per_add << setw(20) << stats.construction_time << setw(20)
+       << stats.lookup_positive << setw(20) << stats.lookup_negative << setw(20) << stats.nanos_per_remove << setw(20) << stats.false_positive_probabilty * 100;
   } else {
-    os << setw(8) << setprecision(4) << stats.false_positive_probabilty * 100
+    os << fixed /*<< setw(8) << setprecision(4) << stats.false_positive_probabilty * 100
        << setw(11) << setprecision(2) << stats.bits_per_item << setw(11) << 64
        << setw(8) << setprecision(1) << 0
-       << " " << setw(7) << setprecision(3) << (stats.add_count / 1000000.);
+       << " " << setw(7) << setprecision(3) << (stats.add_count / 1000000.)*/
+       << setprecision(2) << setw(20) << stats.memory_bytes << setw(20) << stats.bits_per_item << setw(20) << stats.nanos_per_add << setw(20) << stats.construction_time << setw(20)
+       << stats.lookup_positive << setw(20) << stats.lookup_negative << setw(20) << stats.nanos_per_remove << setw(20) << stats.false_positive_probabilty * 100;
   }
   return os;
 }
@@ -217,7 +227,9 @@ Statistics FilterBenchmark(
 
   result.add_count = add_count;
   result.nanos_per_add = static_cast<double>(time) / add_count;
+  result.construction_time = static_cast<double>(time);
   result.bits_per_item = static_cast<double>(CHAR_BIT * filter.SizeInBytes()) / add_count;
+  result.memory_bytes = filter.SizeInBytes();
   size_t found_count = 0;
 
   for (auto t :  mixed_sets) {
@@ -256,6 +268,14 @@ Statistics FilterBenchmark(
     }
     result.nanos_per_finds[100 * found_probability] =
         static_cast<double>(lookup_time) / t.actual_sample_size;
+
+    if (found_probability == 0.0) {
+        result.lookup_negative = static_cast<double>(lookup_time) / t.actual_sample_size;
+    }
+    if (found_probability == 1.0) {
+        result.lookup_positive = static_cast<double>(lookup_time) / t.actual_sample_size;
+    }
+
     if (0.0 == found_probability) {
       ////////////////////////////
       // This is obviously technically wrong!!! The assumption is that there is no overlap between the random
@@ -339,6 +359,21 @@ void parse_comma_separated(char * c, std::set<int> & answer ) {
     }
 }
 
+void writeCSV(std::ofstream& csv, int run, const std::string& name, const Statistics& stats) {
+    csv << run
+        << ";" << stats.add_count
+        << ";" << name
+        << ";" << stats.memory_bytes
+        << ";" << stats.bits_per_item
+        << ";" << stats.nanos_per_add
+        << ";" << stats.construction_time
+        << ";" << stats.lookup_positive
+        << ";" << stats.lookup_negative
+        << ";" << stats.nanos_per_remove
+        << ";" << (stats.false_positive_probabilty * 100)
+        << std::endl;
+}
+
 
 int main(int argc, char * argv[]) {
   std::map<int,std::string> names = {
@@ -395,38 +430,47 @@ int main(int argc, char * argv[]) {
     cerr << "Invalid number: " << add_count_str << endl;
     return 2;
   }
+  int repetitions = 1;
+  if (argc > 2) {
+    stringstream input_string_2(argv[2]);
+    input_string_2 >> repetitions;
+    if (input_string_2.fail() || repetitions < 1) {
+        cerr << "Invalid number: " << endl;
+        return 2;
+    }
+  }
   int algorithmId = -1; // -1 is just the default
   std::set<int> algos;
-  if (argc > 2) {
-      if(strcmp(argv[2],"all") == 0) {
+  if (argc > 3) {
+      if(strcmp(argv[3],"all") == 0) {
          for(auto i : names) {// we add all the named algos.
            algos.insert(i.first);
          }
-      } else if(strstr(argv[2],",") != NULL ||
-          (strstr(argv[2],"-") != NULL && argv[2][0] != '-')) {
+      } else if(strstr(argv[3],",") != NULL ||
+          (strstr(argv[3],"-") != NULL && argv[3][0] != '-')) {
         // we have a list of algos
         algorithmId = 9999999; // disabling
-        parse_comma_separated(argv[2], algos);
+        parse_comma_separated(argv[3], algos);
         if(algos.size() == 0) {
            cerr<< " no algo selected " << endl;
            return -3;
         }
       } else {
         // we select just one
-        stringstream input_string_2(argv[2]);
-        input_string_2 >> algorithmId;
-        if (input_string_2.fail()) {
-            cerr << "Invalid number: " << argv[2];
+        stringstream input_string_3(argv[3]);
+        input_string_3 >> algorithmId;
+        if (input_string_3.fail()) {
+            cerr << "Invalid number: " << argv[3];
             return 2;
         }
       }
   }
   int seed = -1;
-  if (argc > 3) {
-      stringstream input_string_3(argv[3]);
-      input_string_3 >> seed;
-      if (input_string_3.fail()) {
-          cerr << "Invalid number: " << argv[3];
+  if (argc > 4) {
+      stringstream input_string_4(argv[4]);
+      input_string_4 >> seed;
+      if (input_string_4.fail()) {
+          cerr << "Invalid number: " << argv[4];
           return 2;
       }
   }
@@ -434,6 +478,20 @@ int main(int argc, char * argv[]) {
   if (actual_sample_size > add_count) {
     actual_sample_size = add_count;
   }
+
+  std::ofstream csv("results/results.csv");
+  csv << "Run"
+    << ";Datensatzgroeße"
+    << ";Filter"
+    << ";SpeicherBytes"
+    << ";SpeicherProElement"
+    << ";Einfuegezeit"
+    << ";Konstruktionszeit"
+    << ";positiveLookups"
+    << ";negativeLookups"
+    << ";Loeschzeit"
+    << ";FPR"
+    << std::endl;
 
   // Generating Samples ----------------------------------------------------------
 
@@ -518,7 +576,11 @@ int main(int argc, char * argv[]) {
     std::cout << "\r                                                                                         \r"  << std::flush;
   }
   constexpr int NAME_WIDTH = 32;
-  cout << StatisticsTableHeader(NAME_WIDTH, found_probabilities) << endl;
+  cout << StatisticsTableHeader(NAME_WIDTH) << endl;
+
+  for(int run = 1; run <= repetitions; run++) {
+
+    std::cout << "\n=== Run " << run << "/" << repetitions << " ===\n";
 
   // Algorithms ----------------------------------------------------------
   int a;
@@ -530,6 +592,7 @@ int main(int argc, char * argv[]) {
           XorFilter<uint64_t, uint8_t, SimpleMixSplit>>(
           add_count, to_add, intersectionsize, mixed_sets, true);
       cout << setw(NAME_WIDTH) << names[a] << cf << endl;
+      writeCSV(csv, run, names[a], cf);
   }
   /*
   a = 2;
@@ -628,6 +691,7 @@ int main(int argc, char * argv[]) {
           CuckooFilter<uint64_t, 12, SingleTable, SimpleMixSplit>>(
           add_count, to_add, intersectionsize, mixed_sets,  false, true);
       cout << setw(NAME_WIDTH) << names[a] << cf << endl;
+      writeCSV(csv, run, names[a], cf);
   }
   /*
   a = 16;
@@ -697,6 +761,7 @@ int main(int argc, char * argv[]) {
           BloomFilter<uint64_t, 12, false, SimpleMixSplit>>(
           add_count, to_add, intersectionsize, mixed_sets,  true);
       cout << setw(NAME_WIDTH) << names[a] << cf << endl;
+      writeCSV(csv, run, names[a], cf);
   }
   /*a = 45;
   if (algorithmId == a || algorithmId < 0 || (algos.find(a) != algos.end())) {
@@ -742,6 +807,7 @@ int main(int argc, char * argv[]) {
           CountingBloomFilter<uint64_t, 10, true, SimpleMixSplit>>(
           add_count, to_add, intersectionsize, mixed_sets,  true, true);
       cout << setw(NAME_WIDTH) << names[a] << cf << endl;
+      writeCSV(csv, run, names[a], cf);
   }
   /*a = 61;
   if (algorithmId == a  || (algos.find(a) != algos.end())) {
@@ -777,5 +843,5 @@ int main(int argc, char * argv[]) {
   if(to_add.size() < 100000) {
       std::cout << "You specified a relatively small input size; we recommend running the benchmark multiple times in such cases.\n";
   }
-
+  }
 }
