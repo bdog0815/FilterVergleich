@@ -1,0 +1,104 @@
+turbostat version 2026.04.21 - Len Brown <lenb@kernel.org>
+Kernel command line: BOOT_IMAGE=(hd0,gpt2)/vmlinuz-7.2.8-100.fc43.x86_64 root=UUID=abe42776-12c7-486b-9232-679b26b8f450 ro rootflags=subvol=root rd.luks.uuid=luks-09c07881-dc8c-493f-ae69-758c94c172b2 rhgb quiet
+CPUID(0): GenuineIntel 0x20 CPUID levels
+CPUID(1): family:model:stepping 0x6:ba:3 (6:186:3) microcode 0x6134
+CPUID(0x80000000): max_extended_levels: 0x80000008
+CPUID(1): SSE3 MONITOR SMX EIST TM2 No-HV TSC MSR ACPI-TM HT TM
+CPUID(6): APERF, TURBO, DTS, PTM, HWP, HWPnotify, HWPwindow, HWPepp, HWPpkg, EPB
+cpu0: MSR_IA32_MISC_ENABLE: 0x00850089 (TCC EIST MWAIT PREFETCH TURBO)
+CPUID(7): No-SGX Hybrid
+CPUID(0x15): eax_crystal: 2 ebx_tsc: 136 ecx_crystal_hz: 38400000
+TSC: 2611 MHz (38400000 Hz * 136 / 2 / 1000000)
+CPUID(0x16): base_mhz: 2600 max_mhz: 3700 bus_mhz: 100
+cpu0: MSR_PLATFORM_INFO: 0x804043df0811a00
+4 * 100.0 = 400.0 MHz max efficiency frequency
+26 * 100.0 = 2600.0 MHz base frequency
+cpu0: MSR_TURBO_RATIO_LIMIT: 0x2f2f2f2f2f2f2f32
+47 * 100.0 = 4700.0 MHz max turbo 8 active cores
+47 * 100.0 = 4700.0 MHz max turbo 7 active cores
+47 * 100.0 = 4700.0 MHz max turbo 6 active cores
+47 * 100.0 = 4700.0 MHz max turbo 5 active cores
+47 * 100.0 = 4700.0 MHz max turbo 4 active cores
+47 * 100.0 = 4700.0 MHz max turbo 3 active cores
+47 * 100.0 = 4700.0 MHz max turbo 2 active cores
+50 * 100.0 = 5000.0 MHz max turbo 1 active cores
+cpu0: MSR_SECONDARY_TURBO_RATIO_LIMIT: 0x2323232325252525
+35 * 100.0 = 3500.0 MHz max turbo 8 active cores
+35 * 100.0 = 3500.0 MHz max turbo 7 active cores
+35 * 100.0 = 3500.0 MHz max turbo 6 active cores
+35 * 100.0 = 3500.0 MHz max turbo 5 active cores
+37 * 100.0 = 3700.0 MHz max turbo 4 active cores
+37 * 100.0 = 3700.0 MHz max turbo 3 active cores
+37 * 100.0 = 3700.0 MHz max turbo 2 active cores
+37 * 100.0 = 3700.0 MHz max turbo 1 active cores
+cpu0: MSR_CONFIG_TDP_NOMINAL: 0x00000011 (base_ratio=17)
+cpu0: MSR_CONFIG_TDP_LEVEL_1: 0x000b0060 (PKG_MIN_PWR_LVL1=0 PKG_MAX_PWR_LVL1=0 LVL1_RATIO=11 PKG_TDP_LVL1=96)
+cpu0: MSR_CONFIG_TDP_LEVEL_2: 0x001a00e0 (PKG_MIN_PWR_LVL2=0 PKG_MAX_PWR_LVL2=0 LVL2_RATIO=26 PKG_TDP_LVL2=224)
+cpu0: MSR_CONFIG_TDP_CONTROL: 0x00000000 ( lock=0)
+cpu0: MSR_TURBO_ACTIVATION_RATIO: 0x00000010 (MAX_NON_TURBO_RATIO=16 lock=0)
+cpu0: cpufreq driver: intel_pstate
+cpu0: cpufreq governor: powersave
+cpufreq intel_pstate no_turbo: 0
+cpu0: MSR_MISC_PWR_MGMT: 0x000030c2 (ENable-EIST_Coordination ENable-EPB DISable-OOB)
+cpu0: MSR_PM_ENABLE: 0x00000001 (HWP)
+cpu0: MSR_HWP_CAPABILITIES: 0x01161640 (high 64 guar 22 eff 22 low 1)
+cpu0: MSR_HWP_REQUEST: 0xc0004006 (min 6 max 64 des 0 epp 0xc0 window 0x0 pkg 0x0)
+cpu0: MSR_HWP_REQUEST_PKG: 0x8000ff01 (min 1 max 255 des 0 epp 0x80 window 0x0)
+cpu0: MSR_HWP_INTERRUPT: 0x00000005 (EN_Guaranteed_Perf_Change, Dis_Excursion_Min)
+cpu0: MSR_HWP_STATUS: 0x00000000 (No-Guaranteed_Perf_Change, No-Excursion_Min)
+cpu0: EPB: 7 (custom)
+cpu0: MSR_IA32_POWER_CTL: 0x00e4005b (C1E auto-promotion: ENabled)
+cpu0: MSR_PKG_CST_CONFIG_CONTROL: 0x74008008 (UNdemote-C1, demote-C1, locked, pkg-cstate-limit=8 (unlimited))
+/dev/cpu_dma_latency: 2000000000 usec (default)
+current_driver: intel_idle
+current_governor: menu
+current_governor_ro: menu
+cpu0: POLL: CPUIDLE CORE POLL IDLE
+cpu0: C1ACPI: ACPI FFH MWAIT 0x0
+cpu0: C2ACPI: ACPI FFH MWAIT 0x21
+cpu0: C3ACPI: ACPI FFH MWAIT 0x60
+cpu0: MSR_PKGC3_IRTL: 0x00000000 (NOTvalid, 0 ns)
+cpu0: MSR_PKGC6_IRTL: 0x00000000 (NOTvalid, 0 ns)
+cpu0: MSR_PKGC8_IRTL: 0x00000000 (NOTvalid, 0 ns)
+cpu0: MSR_PKGC10_IRTL: 0x00000000 (NOTvalid, 0 ns)
+Uncore Frequency package0 die0: 400 - 4400 MHz (400 - 4400 MHz) 1100 MHz
+RAPL: 17476 sec. Joule Counter Range, at 15 Watts
+intel-rapl:1: psys disabled
+intel-rapl:0: package-0 28.0s:30W,max:15W 2.4ms:55W
+intel-rapl:0/intel-rapl:0:0: core disabled
+intel-rapl:0/intel-rapl:0:1: uncore disabled
+intel-rapl-mmio:0: package-0 28.0s:30W,max:15W 2.4ms:55W
+cpu0: MSR_RAPL_POWER_UNIT: 0x000a0e03 (0.125000 Watts, 0.000061 Joules, 0.000977 sec.)
+cpu0: MSR_PKG_POWER_INFO: 0x00000078 (15 W TDP, RAPL 0 - 0 W, 0.000000 sec.)
+cpu0: MSR_PKG_POWER_LIMIT: 0x4281b800dd80f0 (UNlocked)
+cpu0: PKG Limit #1: ENabled (30.000 Watts, 28.000000 sec, clamp ENabled)
+cpu0: PKG Limit #2: ENabled (55.000 Watts, 0.002441* sec, clamp DISabled)
+cpu0: MSR_VR_CURRENT_CONFIG: 0x80000460
+cpu0: PKG Limit #4: 140.000000 Watts (locked)
+cpu0: MSR_DRAM_POWER_LIMIT: 0x00000000 (UNlocked)
+cpu0: DRAM Limit: DISabled (0.000 Watts, 0.000977 sec, clamp DISabled)
+cpu0: MSR_PP0_POLICY: 9
+cpu0: MSR_PP0_POWER_LIMIT: 0x00000000 (UNlocked)
+cpu0: Cores Limit: DISabled (0.000 Watts, 0.000977 sec, clamp DISabled)
+cpu0: MSR_PP1_POLICY: 13
+cpu0: MSR_PP1_POWER_LIMIT: 0x00000000 (UNlocked)
+cpu0: GFX Limit: DISabled (0.000 Watts, 0.000977 sec, clamp DISabled)
+cpu0: MSR_IA32_TEMPERATURE_TARGET: 0x08640000 (92 C) (100 default - 8 offset)
+cpu0: MSR_IA32_PACKAGE_THERM_STATUS: 0x883a0000 (42 C)
+cpu0: MSR_IA32_PACKAGE_THERM_INTERRUPT: 0x02000003 (100 C, 100 C)
+cpu0: MSR_MISC_FEATURE_CONTROL: 0x00000000 (L2-Prefetch L2-Prefetch-pair L1-Prefetch L1-IP-Prefetch)
+1.733125 sec
+Module	Core	CPU	Avg_MHz	Busy%	Bzy_MHz	TSC_MHz	IPC	IRQ	NMI	SMI	LLCMRPS	LLC%hit	L2MRPS	L2%hit	POLL%	C1ACPI%	C2ACPI%	C3ACPI%	CPU%c1	CPU%c6	CPU%c7	CoreTmp	CoreThr	PkgTmp	GFX%rc6	GFXMHz	GFXAMHz	Totl%C0	Any%C0	GFX%C0	CPUGFX%	Pkg%pc2	Pkg%pc3	Pkg%pc6	Pkg%pc8	Pk%pc10	CPU%LPI	SYS%LPI	PkgWatt	CorWatt	GFXWatt	RAMWatt	PKG_%	RAM_%	UncMHz	SysWatt
+-	-	-	384	19.87	1937	2607	1.46	8039	0	0	138	36.60	421	57.64	0.00	1.05	10.98	68.04	2.48	68.77	3.93	42	0	43	85.86	300	300	244.37	100.21	13.55	13.55	0.00	0.00	0.00	0.00	0.00	0.00	0.00	6.18	3.71	0.10	0.00	0.00	0.00	1600	5.53
+0x0	0x0	0	636	29.19	2178	2611	1.92	1154	0	0	13	71.35	70	78.13	0.00	0.57	20.23	50.06	0.07	0.37	0.00	40	0	43	86.20	300	300	244.92	100.43	13.58	13.58	0.00	0.00	0.00	0.00	0.00	0.00	0.00	6.21	3.72	0.10	0.00	0.00	0.00	1600
+0x0	0x0	1	1598	73.56	2172	2611	1.92	1473	0	0	29	72.82	167	79.65	0.00	0.11	6.09	20.10	0.07
+0x8	0x4	2	1016	48.10	2112	2611	1.19	1069	0	0	39	19.39	88	26.55	0.01	1.35	4.48	46.11	2.18	5.55	39.41	38	0
+0x8	0x4	3	81	3.99	2036	2611	1.21	178	0	0	3	22.83	6	30.42	0.00	0.23	4.72	91.08	2.18
+0x10	0x8	4	67	4.65	1434	2611	0.60	607	0	0	2	47.28	4	40.09	0.00	1.60	19.64	74.26	2.10	91.99	0.00	40	0
+0x10	0x9	5	604	37.35	1617	2611	0.94	1100	0	0	38	15.56	57	28.55	0.00	0.89	21.89	39.92	1.36	60.08	0.00	42	0
+0x10	0xa	6	391	25.55	1529	2611	1.17	689	0	0	7	22.36	13	38.77	0.00	0.72	6.91	66.83	1.75	72.26	0.00	42	0
+0x10	0xb	7	30	2.09	1448	2611	0.33	186	0	0	1	57.52	2	41.90	0.00	0.46	5.62	91.93	0.47	96.64	0.00	42	0
+0x18	0xc	8	37	2.95	1241	2611	0.25	555	0	0	1	55.76	3	40.26	0.00	2.00	17.39	77.86	7.73	87.75	0.00	42	0
+0x18	0xd	9	33	2.43	1368	2611	0.35	235	0	0	1	54.96	2	47.86	0.00	1.40	6.26	90.03	3.75	92.91	0.00	42	0
+0x18	0xe	10	59	3.80	1558	2611	0.30	258	0	0	1	51.83	4	57.20	0.00	0.84	7.32	88.19	0.84	93.82	0.00	42	0
+0x18	0xf	11	72	5.00	1437	2611	0.56	535	0	0	3	36.09	5	37.12	0.00	2.43	11.46	81.34	7.24	85.57	0.00	42	0

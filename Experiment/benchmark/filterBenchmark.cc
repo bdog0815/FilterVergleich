@@ -385,7 +385,7 @@ int main(int argc, char * argv[]) {
     //{10,"Cuckoo8"},
     /*{11,"Cuckoo12"}, {12,"Cuckoo16"},
     {13,"CuckooSemiSort13"},
-    {14, "Cuckoo8-2^n"}, */
+    {14, "Cuckoo8-2^n"},*/
     {15, "Cuckoo12-2^n"}, /*{16, "Cuckoo16-2^n"},
     {17, "CuckooSemiSort13-2^n"},
     {18, "CuckooFuse8"},
@@ -589,7 +589,7 @@ int main(int argc, char * argv[]) {
   a = 0;
   if (algorithmId == a || algorithmId < 0 || (algos.find(a) != algos.end())) {
       auto cf = FilterBenchmark<
-          XorFilter<uint64_t, uint8_t, SimpleMixSplit>>(
+          XorFilter<uint64_t, uint8_t, TwoIndependentMultiplyShift>>(
           add_count, to_add, intersectionsize, mixed_sets, true);
       cout << setw(NAME_WIDTH) << names[a] << cf << endl;
       writeCSV(csv, run, names[a], cf);
@@ -676,19 +676,19 @@ int main(int argc, char * argv[]) {
           add_count, to_add, intersectionsize, mixed_sets,  false, true);
       cout << setw(NAME_WIDTH) << names[a] << cf << endl;
   }
-  */
-  /*
   a = 14;
-  if (algorithmId == a || (algos.find(a) != algos.end())) {
+  if (algorithmId == a || algorithmId < 0 || (algos.find(a) != algos.end())) {
       auto cf = FilterBenchmark<
           CuckooFilter<uint64_t, 8, SingleTable, SimpleMixSplit>>(
           add_count, to_add, intersectionsize, mixed_sets,  false, true);
       cout << setw(NAME_WIDTH) << names[a] << cf << endl;
-  }*/
+      writeCSV(csv, run, names[a], cf);
+    }
+  */
   a = 15;
   if (algorithmId == a || algorithmId < 0 || (algos.find(a) != algos.end())) {
       auto cf = FilterBenchmark<
-          CuckooFilter<uint64_t, 12, SingleTable, SimpleMixSplit>>(
+          CuckooFilter<uint64_t, 12, SingleTable, TwoIndependentMultiplyShift>>(
           add_count, to_add, intersectionsize, mixed_sets,  false, true);
       cout << setw(NAME_WIDTH) << names[a] << cf << endl;
       writeCSV(csv, run, names[a], cf);
@@ -758,7 +758,7 @@ int main(int argc, char * argv[]) {
   a = 44;
   if (algorithmId == a || algorithmId < 0 || (algos.find(a) != algos.end())) {
       auto cf = FilterBenchmark<
-          BloomFilter<uint64_t, 12, false, SimpleMixSplit>>(
+          BloomFilter<uint64_t, 12, false, TwoIndependentMultiplyShift>>(
           add_count, to_add, intersectionsize, mixed_sets,  true);
       cout << setw(NAME_WIDTH) << names[a] << cf << endl;
       writeCSV(csv, run, names[a], cf);
@@ -804,7 +804,7 @@ int main(int argc, char * argv[]) {
   a = 60;
   if (algorithmId == a || algorithmId < 0 || (algos.find(a) != algos.end())) {
       auto cf = FilterBenchmark<
-          CountingBloomFilter<uint64_t, 10, true, SimpleMixSplit>>(
+          CountingBloomFilter<uint64_t, 10, true, TwoIndependentMultiplyShift>>(
           add_count, to_add, intersectionsize, mixed_sets,  true, true);
       cout << setw(NAME_WIDTH) << names[a] << cf << endl;
       writeCSV(csv, run, names[a], cf);
