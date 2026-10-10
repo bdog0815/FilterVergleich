@@ -1,0 +1,5 @@
+Run;Datensatzgroeße;Filter;SpeicherBytes;SpeicherProElement;Einfuegezeit;Konstruktionszeit;positiveLookups;negativeLookups;Loeschzeit;FPR
+1;10000;Xor8;12332;9.8656;182.426;1.82426e+06;10.7035;10.7565;0;0.36
+1;10000;Cuckoo12-2^n;24576;19.6608;29.5314;295314;11.5391;11.5552;26.9204;0.11
+1;10000;Bloom12-addAll;15000;12;43.973;439730;19.6215;28.0449;0;0.33
+1;10000;CountingBloom10-addAll;50000;40;39.3354;393354;31.521;32.5316;20.8112;0.71

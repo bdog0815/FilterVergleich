@@ -479,7 +479,7 @@ int main(int argc, char * argv[]) {
     actual_sample_size = add_count;
   }
 
-  std::ofstream csv("results/results.csv");
+  std::ofstream csv("results/results_" + std::to_string(add_count) + ".csv");
   csv << "Run"
     << ";Datensatzgroeße"
     << ";Filter"
