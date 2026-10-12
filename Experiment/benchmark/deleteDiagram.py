@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Daten laden
-df = pd.read_csv("results_summary_explo.csv", sep=";")
+df = pd.read_csv("results_summary.csv", sep=";")
 
 plt.figure(figsize=(10, 6))
 
@@ -24,7 +24,7 @@ for filter_name, color in filter_colors.items():
         label=filter_name
     )
 
-plt.xscale("log")
+plt.xscale("linear")
 
 plt.xlabel("Datensatzgröße")
 plt.ylabel("Löschzeit [ns/Element]")

@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Zusammengefasste Ergebnisse einlesen
-df = pd.read_csv("results_summary_explo.csv", sep=";")
+df = pd.read_csv("results_summary.csv", sep=";")
 
 # Diagramm erzeugen
 plt.figure(figsize=(10, 6))
@@ -17,7 +17,7 @@ for filter_name in df["Filter"].unique():
         label=filter_name
     )
 
-plt.xscale("log")
+plt.xscale("linear")
 
 plt.xlabel("Datensatzgröße")
 plt.ylabel("False-Positive-Rate [ns/Element]")

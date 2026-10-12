@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-df = pd.read_csv("results_summary_explo.csv", sep=";")
+df = pd.read_csv("results_summary.csv", sep=";")
 
 colors = {
     "Xor8": "red",
@@ -35,7 +35,7 @@ for filter_name in df["Filter"].unique():
         label=f"{filter_name} (-)"
     )
 
-plt.xscale("log")
+plt.xscale("linear")
 
 plt.xlabel("Datensatzgröße")
 plt.ylabel("Anfrage-Zeit [ns]")
