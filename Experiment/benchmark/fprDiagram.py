@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Zusammengefasste Ergebnisse einlesen
-df = pd.read_csv("results/results_summary.csv", sep=";")
+df = pd.read_csv("results/results_explo/results_summary_explo.csv", sep=";")
 
 # Diagramm erzeugen
 plt.figure(figsize=(10, 6))
@@ -17,11 +17,10 @@ for filter_name in df["Filter"].unique():
         label=filter_name
     )
 
-plt.xscale("linear")
+plt.xscale("log")
 
 plt.xlabel("Datensatzgröße")
 plt.ylabel("False-Positive-Rate [%]")
-plt.title("False-Positive-Rate in Abhängigkeit der Datensatzgröße")
 
 plt.legend()
 plt.grid(True)

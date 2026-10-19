@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-df = pd.read_csv("results_summary.csv", sep=";")
+df = pd.read_csv("results/results_explo/results_summary_explo.csv", sep=";")
 
 colors = {
     "Xor8": "red",
@@ -35,11 +35,10 @@ for filter_name in df["Filter"].unique():
         label=f"{filter_name} (-)"
     )
 
-plt.xscale("linear")
+plt.xscale("log")
 
 plt.xlabel("Datensatzgröße")
 plt.ylabel("Anfrage-Zeit [ns]")
-plt.title("Positive und negative Anfrage-Zeiten")
 
 plt.legend()
 plt.grid(True)

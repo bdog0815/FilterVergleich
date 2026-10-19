@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Daten laden
-df = pd.read_csv("results_summary.csv", sep=";")
+df = pd.read_csv("results/results_summary.csv", sep=";")
 
 plt.figure(figsize=(10, 6))
 
@@ -27,8 +27,7 @@ for filter_name, color in filter_colors.items():
 plt.xscale("linear")
 
 plt.xlabel("Datensatzgröße")
-plt.ylabel("Löschzeit [ns/Element]")
-plt.title("Löschzeit in Abhängigkeit der Datensatzgröße")
+plt.ylabel("Löschzeit [ns]")
 
 plt.legend()
 plt.grid(True)
